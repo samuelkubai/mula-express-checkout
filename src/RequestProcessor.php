@@ -2,7 +2,7 @@
 
 namespace Mula;
 
-use Mula\Libraries\Mcrypt;
+use Mula\Libraries\Openssl;
 
 class RequestProcessor
 {
@@ -58,10 +58,10 @@ class RequestProcessor
      */
     public function process($request)
     {
-        $mcrypt = new MCrypt($this->iv_key, $this->secret_key);
+        $openssl = new Openssl($this->iv_key, $this->secret_key);
 
         //Encrypt
-        $encrypted = $mcrypt->encrypt(json_encode($request, true));
+        $encrypted = $openssl->encryptData($request);
 
         return array(
             'PARAMS' => $encrypted,

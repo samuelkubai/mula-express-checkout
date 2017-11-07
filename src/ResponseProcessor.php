@@ -2,7 +2,7 @@
 
 namespace Mula;
 
-use Mula\Libraries\Mcrypt;
+use Mula\Libraries\Openssl;
 
 class ResponseProcessor
 {
@@ -42,7 +42,7 @@ class ResponseProcessor
     public function process($code)
     {
         return json_decode(
-            (new MCrypt($this->iv_key, $this->secret_key))->decrypt($code),
+            (new Openssl($this->iv_key, $this->secret_key))->decryptPayload($code),
             true
         );
     }
